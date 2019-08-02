@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+@import '../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css';
+
+
+
+
+.keyCard{
+    width: 80%; 
+    margin: auto;
+    font-size: 200px;
+}
+
+.none{
+
+}
+
+.green{
+    background-color: darkolivegreen;
+}
+
+.red{
+    background-color: red;
+}

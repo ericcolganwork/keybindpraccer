@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { KeybindModel } from './keybind-model';
-import { Key } from 'readline';
 import { KeyModel } from './key-model';
+import { HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-keybind',
@@ -13,6 +13,8 @@ export class KeybindComponent implements OnInit {
   constructor() { }
 
   public keyBindModel: KeybindModel;
+  public selectedKey: KeyModel;
+  public index: number;
 
   ngOnInit() {
     this.keyBindModel = new KeybindModel();
@@ -24,6 +26,28 @@ export class KeybindComponent implements OnInit {
       new KeyModel('r'),
       new KeyModel('3')
     ];
+
+    this.index = 0;
+    this.selectedKey = this.keyBindModel.keyList[this.index];
+  }
+
+  @HostListener('document:keypress', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === this.selectedKey.Key) {
+      this.selectedKey.Class = 'green';
+    } else {
+      this.selectedKey.Class = 'red';
+    }
+    this.nextkey();
+  }
+
+  nextkey() {
+    if (this.index >= this.keyBindModel.keyList.length) {
+      this.index = 0;
+    } else {
+      this.index = this.index + 1;
+    }
+    this.selectedKey = this.keyBindModel.keyList[this.index];
   }
 
 }

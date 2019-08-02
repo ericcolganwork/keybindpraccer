@@ -1,1 +1,5 @@
-<p>keybind works!</p>
+<mat-card class="keyCard" (keypress)="onKeyPress($event)">
+    <div [class]="selectedKey.Class" fxLayout="row" fxLayoutAlign="center center">
+            {{selectedKey.Key}}
+    </div>
+</mat-card>
