@@ -1,15 +1,25 @@
 <mat-card class="keyCard">
-        <div [class]="selectedKey.Class" fxLayout="row" fxLayoutAlign="center center">
-                {{selectedKey.Alias}}
-        </div>
+	<div [class]="selectedKey.Class" fxLayout="row" fxLayoutAlign="center center">
+		{{selectedKey.Alias}}
+	</div>
 </mat-card>
 
 <span class="spacer"></span>
 
-<mat-card class="keyList">
-        <mat-grid-list cols="5" rowHeight="2:1">
-                <ng-container *ngFor="let item of keyBindModel.keyList">
-                        <mat-grid-tile class="keylistItem">{{item.Alias}}</mat-grid-tile>
-                </ng-container>
-        </mat-grid-list>
+<mat-card>
+	<mat-grid-list cols="5" rowHeight="2:1">
+		<ng-container *ngFor="let item of keyBindModel.keyList">
+			<mat-grid-tile>
+					<div fxLayout="column"  fxLayoutGap="1px">
+						<div fxLayoutAlign="center">
+								{{item.Alias}}
+						</div>
+						<div fxLayout="row" fxLayoutGap="1px">
+								<button mat-button color="primary" (click)="copy(item)">Copy</button>
+								<button mat-button color="warn" (click)="delete(item)">Delete</button>
+						</div>
+				</div>
+			</mat-grid-tile>
+		</ng-container>
+	</mat-grid-list>
 </mat-card>

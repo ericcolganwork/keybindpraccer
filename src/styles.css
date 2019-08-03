@@ -13,21 +13,13 @@
 .keyList{
     width: 80%; 
     margin: auto;
-    font-size: 50px;
 }
 
-.keyCard{
-    width: 80%; 
-    margin: auto;
-}
 
 .none{
 
 }
 
-.keylistItem{
-background-color: aqua;
-}
 
 .green{
     background-color: darkolivegreen;

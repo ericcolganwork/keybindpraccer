@@ -53,7 +53,7 @@ export class KeybindComponent implements OnInit {
 
     // Avoid same entry twice
     const nextList = this.keyBindModel.keyList.filter((bind) => bind.Key !== this.selectedKey.Key);
-    let rand = Math.floor(Math.random() * nextList.length);
+    const rand = Math.floor(Math.random() * nextList.length);
 
     this.selectedKey = nextList[rand]
     ;
