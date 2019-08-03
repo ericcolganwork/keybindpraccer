@@ -1,5 +1,15 @@
-<mat-card class="keyCard" (keypress)="onKeyPress($event)">
-    <div [class]="selectedKey.Class" fxLayout="row" fxLayoutAlign="center center">
-            {{selectedKey.Key}}
-    </div>
+<mat-card class="keyCard">
+        <div [class]="selectedKey.Class" fxLayout="row" fxLayoutAlign="center center">
+                {{selectedKey.Alias}}
+        </div>
+</mat-card>
+
+<span class="spacer"></span>
+
+<mat-card class="keyList">
+        <mat-grid-list cols="5" rowHeight="2:1">
+                <ng-container *ngFor="let item of keyBindModel.keyList">
+                        <mat-grid-tile class="keylistItem">{{item.Alias}}</mat-grid-tile>
+                </ng-container>
+        </mat-grid-list>
 </mat-card>

@@ -14,7 +14,6 @@ export class KeybindComponent implements OnInit {
 
   public keyBindModel: KeybindModel;
   public selectedKey: KeyModel;
-  public index: number;
   public keyboardActive: boolean;
 
   ngOnInit() {
@@ -29,8 +28,7 @@ export class KeybindComponent implements OnInit {
     ];
 
     this.keyboardActive = true;
-    this.index = 0;
-    this.selectedKey = this.keyBindModel.keyList[this.index];
+    this.selectedKey = this.keyBindModel.keyList[0];
   }
 
   @HostListener('document:keypress', ['$event'])
@@ -52,28 +50,14 @@ export class KeybindComponent implements OnInit {
   nextKey() {
     // Random Select
     this.selectedKey.Class = 'none';
-    let rand = Math.floor(Math.random() * this.keyBindModel.keyList.length);
 
     // Avoid same entry twice
-    if ( rand === this.index && (rand === this.keyBindModel.keyList.length - 1 ||  rand === 0)) {
-      rand =  this.keyBindModel.keyList.length - 2;
-    }
+    const nextList = this.keyBindModel.keyList.filter((bind) => bind.Key !== this.selectedKey.Key);
+    let rand = Math.floor(Math.random() * nextList.length);
 
-    if ( rand === this.index ) {
-      rand = rand + 1;
-    }
+    this.selectedKey = nextList[rand]
+    ;
 
-    this.index = rand;
-    this.selectedKey = this.keyBindModel.keyList[this.index];
-
-    // Doing it by index
-    // if (this.index >= this.keyBindModel.keyList.length - 1) {
-    //   this.index = 0;
-    // } else {
-    //   this.index = this.index + 1;
-    // }
-    // this.selectedKey.Class = 'none';
-    // this.selectedKey = this.keyBindModel.keyList[this.index];
   }
 
 }
