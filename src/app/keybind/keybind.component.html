@@ -1,11 +1,23 @@
 <div fxLayout="column" fxLayoutGap="20px">
-	<mat-card class="keyCard">
-		<div [class]="selectedKey.Class" fxLayout="row" fxLayoutAlign="center center">
-			{{selectedKey.Alias}}
-		</div>
+	<mat-card >
+			<mat-card-header>
+					<mat-card-title *ngIf="ready" style="color: aquamarine">Ready</mat-card-title>
+					<mat-card-title *ngIf="!ready" style="color: red">Not Ready</mat-card-title>
+				</mat-card-header>
+			<mat-card-content class="keyCard">
+					<div [class]="selectedKey.Class"  fxLayout="row" fxLayoutAlign="center center">
+							{{selectedKey.Alias}}
+					</div>
+				</mat-card-content>
+		
+		<mat-card-actions>
+				<div fxLayout="row wrap" fxLayoutGap="20px">
+				  <button mat-button color="primary" (click)="options()">Options</button>
+				</div>
+		</mat-card-actions>
 	</mat-card>
 
-	<mat-card class="keyCard">
+	<mat-card class="keyCard" *ngIf="showOptions">
 		<mat-card-header>
 			<mat-card-title>New KeyBind</mat-card-title>
 		</mat-card-header>
@@ -13,7 +25,7 @@
 		<mat-card-content>
 			<form #newBindForm="ngForm">
 				<div fxLayout="column" fxLayoutGap="20px">
-					<mat-form-field>
+					<mat-form-field onfocus="setReady()">
 						<input matInput placeholder="Enter Alias *" name="Alias" [(ngModel)]="newBind.Alias">
 					</mat-form-field>
 
@@ -45,7 +57,7 @@
 
 
 
-	<div fxLayout="row wrap" fxLayoutGap="5px" fxLayoutAlign="center center">
+	<div fxLayout="row wrap" fxLayoutGap="5px" fxLayoutAlign="center center" *ngIf="showOptions">
 		<ng-container *ngFor="let item of keyBindModel.keyList">
 			<mat-card>
 				<mat-card-header>

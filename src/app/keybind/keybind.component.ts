@@ -21,7 +21,8 @@ export class KeybindComponent implements OnInit {
 
   }
 
-
+  public ready: boolean;
+  public showOptions: boolean;
   public keyBindModel: KeybindModel;
   public selectedKey: KeyModel;
   public keyboardActive: boolean;
@@ -40,6 +41,7 @@ export class KeybindComponent implements OnInit {
       new KeyModel('3', '3', false, false, false)
     ];
 
+    this.showOptions = false;
     this.newBind = new KeyModel('', '', false, false, false);
     this.guid = new Guid();
     this.keyboardActive = true;
@@ -60,7 +62,7 @@ export class KeybindComponent implements OnInit {
       setTimeout(() => {
         this.nextKey();
         this.keyboardActive = true;
-      }, 500);
+      }, 250);
     }
   }
 
@@ -91,6 +93,18 @@ export class KeybindComponent implements OnInit {
 
   delete(km: KeyModel) {
     this.keyBindModel.keyList = this.keyBindModel.keyList.filter((bind) => bind.Id !== km.Id);
+  }
+
+  options() {
+    this.showOptions = !this.showOptions;
+  }
+
+  setReady() {
+    this.ready = true;
+  }
+
+  setNotReady() {
+    this.ready = false;
   }
 
 }
