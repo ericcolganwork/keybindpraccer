@@ -1,41 +1,58 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { KeybindModel } from './keybind-model';
 import { KeyModel } from './key-model';
 import { HostListener } from '@angular/core';
+import { Guid } from '../services/guid';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-keybind',
   templateUrl: './keybind.component.html',
   styleUrls: ['./keybind.component.css']
 })
+
+
+
 export class KeybindComponent implements OnInit {
 
-  constructor() { }
+  @ViewChild('newBindForm', {static: false}) newBindForm: NgForm;
+
+  constructor() {
+
+  }
+
 
   public keyBindModel: KeybindModel;
   public selectedKey: KeyModel;
   public keyboardActive: boolean;
+  public guid: Guid;
+
+  public newBind: KeyModel;
 
   ngOnInit() {
     this.keyBindModel = new KeybindModel();
     this.keyBindModel.keyList = [
-      new KeyModel('e'),
-      new KeyModel('f'),
-      new KeyModel('q'),
-      new KeyModel('w'),
-      new KeyModel('r'),
-      new KeyModel('3')
+      new KeyModel('e', 'shifte', true, false, false),
+      new KeyModel('f', 'f', false, false, false),
+      new KeyModel('q', 'q', false, false, false),
+      new KeyModel('w', 'w', false, false, false),
+      new KeyModel('r', 'r', false, false, false),
+      new KeyModel('3', '3', false, false, false)
     ];
 
+    this.newBind = new KeyModel('', '', false, false, false);
+    this.guid = new Guid();
     this.keyboardActive = true;
     this.selectedKey = this.keyBindModel.keyList[0];
   }
 
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
+    console.log(event.key);
     if (this.keyboardActive === true) {
       this.keyboardActive = false;
-      if (event.key === this.selectedKey.Key) {
+      if (event.key.toLowerCase() === this.selectedKey.Key.toLowerCase() && event.shiftKey === this.selectedKey.Shift
+        && event.altKey === this.selectedKey.Alt && event.ctrlKey === this.selectedKey.Ctrl) {
         this.selectedKey.Class = 'green';
       } else {
         this.selectedKey.Class = 'red';
@@ -55,9 +72,25 @@ export class KeybindComponent implements OnInit {
     const nextList = this.keyBindModel.keyList.filter((bind) => bind.Key !== this.selectedKey.Key);
     const rand = Math.floor(Math.random() * nextList.length);
 
-    this.selectedKey = nextList[rand]
-    ;
+    this.selectedKey = nextList[rand];
 
+  }
+
+  save() {
+    if (this.newBind.Key && this.newBind.Alias) {
+      const newKM = new KeyModel(this.newBind.Key, this.newBind.Alias, this.newBind.Shift, this.newBind.Alt, this.newBind.Ctrl);
+      this.keyBindModel.keyList.push(newKM);
+      this.newBindForm.reset();
+    }
+  }
+
+  copy(km: KeyModel) {
+    const newKM = new KeyModel(km.Key, km.Alias, km.Shift, km.Alt, km.Ctrl);
+    this.keyBindModel.keyList.push(newKM);
+  }
+
+  delete(km: KeyModel) {
+    this.keyBindModel.keyList = this.keyBindModel.keyList.filter((bind) => bind.Id !== km.Id);
   }
 
 }

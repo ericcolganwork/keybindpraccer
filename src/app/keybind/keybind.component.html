@@ -1,25 +1,65 @@
-<mat-card class="keyCard">
-	<div [class]="selectedKey.Class" fxLayout="row" fxLayoutAlign="center center">
-		{{selectedKey.Alias}}
-	</div>
-</mat-card>
+<div fxLayout="column" fxLayoutGap="20px">
+	<mat-card class="keyCard">
+		<div [class]="selectedKey.Class" fxLayout="row" fxLayoutAlign="center center">
+			{{selectedKey.Alias}}
+		</div>
+	</mat-card>
 
-<span class="spacer"></span>
+	<mat-card class="keyCard">
+		<mat-card-header>
+			<mat-card-title>New KeyBind</mat-card-title>
+		</mat-card-header>
 
-<mat-card>
-	<mat-grid-list cols="5" rowHeight="2:1">
-		<ng-container *ngFor="let item of keyBindModel.keyList">
-			<mat-grid-tile>
-					<div fxLayout="column"  fxLayoutGap="1px">
-						<div fxLayoutAlign="center">
-								{{item.Alias}}
-						</div>
-						<div fxLayout="row" fxLayoutGap="1px">
-								<button mat-button color="primary" (click)="copy(item)">Copy</button>
-								<button mat-button color="warn" (click)="delete(item)">Delete</button>
-						</div>
+		<mat-card-content>
+			<form #newBindForm="ngForm">
+				<div fxLayout="column" fxLayoutGap="20px">
+					<mat-form-field>
+						<input matInput placeholder="Enter Alias *" name="Alias" [(ngModel)]="newBind.Alias">
+					</mat-form-field>
+
+					<mat-form-field>
+						<input matInput placeholder="Enter Key *" name="Key" [(ngModel)]="newBind.Key">
+					</mat-form-field>
+					<div fxLayout="row" fxLayoutGap="10px">
+						<mat-checkbox [(ngModel)]="newBind.Shift" name="Shift">
+							Shift</mat-checkbox>
+
+						<mat-checkbox [(ngModel)]="newBind.Alt" name="Alt">
+							Alt</mat-checkbox>
+
+						<mat-checkbox [(ngModel)]="newBind.Ctrl" name="Ctrl">
+							Ctrl</mat-checkbox>
+					</div>
+
 				</div>
-			</mat-grid-tile>
+
+
+				<div fxLayout="row wrap" fxLayoutGap="20px">
+					<button mat-button color="primary" (click)="save()">Save</button>
+				</div>
+			</form>
+		</mat-card-content>
+	</mat-card>
+
+
+
+
+
+	<div fxLayout="row wrap" fxLayoutGap="5px" fxLayoutAlign="center center">
+		<ng-container *ngFor="let item of keyBindModel.keyList">
+			<mat-card>
+				<mat-card-header>
+					<mat-card-title>Alias: {{item.Alias}}</mat-card-title>
+					<mat-card-title>Key: {{item.Key}}</mat-card-title>
+					<mat-card-title>Mods: {{item.Mods}}</mat-card-title>
+				</mat-card-header>
+				<mat-card-content>
+				</mat-card-content>
+				<mat-card-actions>
+					<button mat-button color="primary" (click)="copy(item)">Copy</button>
+					<button mat-button color="warn" (click)="delete(item)">Delete</button>
+				</mat-card-actions>
+			</mat-card>
 		</ng-container>
-	</mat-grid-list>
-</mat-card>
+	</div>
+</div>

@@ -20,9 +20,14 @@
 
 }
 
+.spacer {
+    height: 20px;
+    flex: 1 1 auto;
+}
+
 
 .green{
-    background-color: darkolivegreen;
+    background-color: lightgreen;
 }
 
 .red{
