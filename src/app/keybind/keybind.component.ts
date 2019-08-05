@@ -38,12 +38,19 @@ export class KeybindComponent implements OnInit {
 
     if (this.keyBindModel.keyList.length === 0) {
       this.keyBindModel.keyList = [
-        new KeyModel('e', 'shifte', true, false, false),
-        new KeyModel('f', 'f', false, false, false),
         new KeyModel('q', 'q', false, false, false),
         new KeyModel('w', 'w', false, false, false),
+        new KeyModel('e', 'e', false, false, false),
         new KeyModel('r', 'r', false, false, false),
-        new KeyModel('3', '3', false, false, false)
+        new KeyModel('a', 'a', false, false, false),
+        new KeyModel('s', 's', false, false, false),
+        new KeyModel('d', 'd', false, false, false),
+        new KeyModel('f', 'f', false, false, false),
+        new KeyModel('s', 's', false, false, false),
+        new KeyModel('1', '1', false, false, false),
+        new KeyModel('2', '2', false, false, false),
+        new KeyModel('3', '3', false, false, false),
+        new KeyModel('4', '4', false, false, false),
       ];
     }
 
