@@ -9,7 +9,8 @@ import {
   MatCardModule,
   MatGridListModule,
   MatInputModule,
-  MatCheckboxModule
+  MatCheckboxModule,
+  MatDialogModule
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -32,7 +33,8 @@ import { KeybindComponent } from './keybind/keybind.component';
     ReactiveFormsModule,
     MatInputModule,
     BrowserAnimationsModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

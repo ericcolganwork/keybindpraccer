@@ -4,6 +4,7 @@ import { KeyModel } from './key-model';
 import { HostListener } from '@angular/core';
 import { Guid } from '../services/guid';
 import { NgForm } from '@angular/forms';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-keybind',
@@ -15,7 +16,7 @@ import { NgForm } from '@angular/forms';
 
 export class KeybindComponent implements OnInit {
 
-  @ViewChild('newBindForm', {static: false}) newBindForm: NgForm;
+  @ViewChild('newBindForm', { static: false }) newBindForm: NgForm;
 
   constructor() {
 
@@ -30,16 +31,22 @@ export class KeybindComponent implements OnInit {
 
   public newBind: KeyModel;
 
+
   ngOnInit() {
     this.keyBindModel = new KeybindModel();
-    this.keyBindModel.keyList = [
-      new KeyModel('e', 'shifte', true, false, false),
-      new KeyModel('f', 'f', false, false, false),
-      new KeyModel('q', 'q', false, false, false),
-      new KeyModel('w', 'w', false, false, false),
-      new KeyModel('r', 'r', false, false, false),
-      new KeyModel('3', '3', false, false, false)
-    ];
+    this.keyBindModel.keyList = JSON.parse(localStorage.getItem('keyList') || '[]');
+
+    if (this.keyBindModel.keyList.length === 0) {
+      this.keyBindModel.keyList = [
+        new KeyModel('e', 'shifte', true, false, false),
+        new KeyModel('f', 'f', false, false, false),
+        new KeyModel('q', 'q', false, false, false),
+        new KeyModel('w', 'w', false, false, false),
+        new KeyModel('r', 'r', false, false, false),
+        new KeyModel('3', '3', false, false, false)
+      ];
+    }
+
 
     this.showOptions = false;
     this.newBind = new KeyModel('', '', false, false, false);
@@ -48,10 +55,12 @@ export class KeybindComponent implements OnInit {
     this.selectedKey = this.keyBindModel.keyList[0];
   }
 
+
+
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     console.log(event.key);
-    if (this.keyboardActive === true) {
+    if (this.keyboardActive === true && !this.showOptions) {
       this.keyboardActive = false;
       if (event.key.toLowerCase() === this.selectedKey.Key.toLowerCase() && event.shiftKey === this.selectedKey.Shift
         && event.altKey === this.selectedKey.Alt && event.ctrlKey === this.selectedKey.Ctrl) {
@@ -64,6 +73,10 @@ export class KeybindComponent implements OnInit {
         this.keyboardActive = true;
       }, 250);
     }
+  }
+
+  saveList() {
+    localStorage.setItem('keyList', JSON.stringify(this.keyBindModel.keyList));
   }
 
   nextKey() {
@@ -82,7 +95,11 @@ export class KeybindComponent implements OnInit {
     if (this.newBind.Key && this.newBind.Alias) {
       const newKM = new KeyModel(this.newBind.Key, this.newBind.Alias, this.newBind.Shift, this.newBind.Alt, this.newBind.Ctrl);
       this.keyBindModel.keyList.push(newKM);
-      this.newBindForm.reset();
+      this.newBind.Key = '';
+      this.newBind.Alias = '';
+      this.newBind.Shift = false;
+      this.newBind.Alt = false;
+      this.newBind.Ctrl = false;
     }
   }
 
@@ -98,13 +115,4 @@ export class KeybindComponent implements OnInit {
   options() {
     this.showOptions = !this.showOptions;
   }
-
-  setReady() {
-    this.ready = true;
-  }
-
-  setNotReady() {
-    this.ready = false;
-  }
-
 }
