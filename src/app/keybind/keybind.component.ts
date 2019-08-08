@@ -5,6 +5,7 @@ import { HostListener } from '@angular/core';
 import { Guid } from '../services/guid';
 import { NgForm } from '@angular/forms';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { AboutDialogComponent } from '../about-dialog/about-dialog.component';
 
 @Component({
   selector: 'app-keybind',
@@ -18,7 +19,7 @@ export class KeybindComponent implements OnInit {
 
   @ViewChild('newBindForm', { static: false }) newBindForm: NgForm;
 
-  constructor() {
+  constructor(public dialog: MatDialog) {
 
   }
 
@@ -82,10 +83,6 @@ export class KeybindComponent implements OnInit {
     }
   }
 
-  saveList() {
-    localStorage.setItem('keyList', JSON.stringify(this.keyBindModel.keyList));
-  }
-
   nextKey() {
     // Random Select
     this.selectedKey.Class = 'none';
@@ -98,6 +95,11 @@ export class KeybindComponent implements OnInit {
 
   }
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(AboutDialogComponent, {
+    });
+  }
+
   save() {
     if (this.newBind.Key && this.newBind.Alias) {
       const newKM = new KeyModel(this.newBind.Key, this.newBind.Alias, this.newBind.Shift, this.newBind.Alt, this.newBind.Ctrl);
@@ -107,6 +109,8 @@ export class KeybindComponent implements OnInit {
       this.newBind.Shift = false;
       this.newBind.Alt = false;
       this.newBind.Ctrl = false;
+
+      localStorage.setItem('keyList', JSON.stringify(this.keyBindModel.keyList));
     }
   }
 
@@ -123,3 +127,6 @@ export class KeybindComponent implements OnInit {
     this.showOptions = !this.showOptions;
   }
 }
+
+
+

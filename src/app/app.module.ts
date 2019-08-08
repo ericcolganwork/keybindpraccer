@@ -10,17 +10,20 @@ import {
   MatGridListModule,
   MatInputModule,
   MatCheckboxModule,
-  MatDialogModule
+  MatDialogModule,
+  MatToolbarModule
 } from '@angular/material';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { KeybindComponent } from './keybind/keybind.component';
+import { AboutDialogComponent } from './about-dialog/about-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    KeybindComponent
+    KeybindComponent,
+    AboutDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -34,7 +37,11 @@ import { KeybindComponent } from './keybind/keybind.component';
     MatInputModule,
     BrowserAnimationsModule,
     MatCheckboxModule,
-    MatDialogModule
+    MatDialogModule,
+    MatToolbarModule
+  ],
+  entryComponents: [
+    AboutDialogComponent
   ],
   providers: [],
   bootstrap: [AppComponent]
