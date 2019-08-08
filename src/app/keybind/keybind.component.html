@@ -69,7 +69,7 @@
 				<mat-card-header>
 					<mat-card-title>Alias: {{item.Alias}}</mat-card-title>
 					<mat-card-title>Key: {{item.Key}}</mat-card-title>
-					<mat-card-title>Mods: {{item.Mods}}</mat-card-title>
+					<mat-card-title *ngIf="item.Mods">Mods: {{item.Mods}}</mat-card-title>
 				</mat-card-header>
 				<mat-card-content>
 				</mat-card-content>
