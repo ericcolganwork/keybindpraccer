@@ -121,6 +121,7 @@ export class KeybindComponent implements OnInit {
 
   delete(km: KeyModel) {
     this.keyBindModel.keyList = this.keyBindModel.keyList.filter((bind) => bind.Id !== km.Id);
+    localStorage.setItem('keyList', JSON.stringify(this.keyBindModel.keyList));
   }
 
   options() {
