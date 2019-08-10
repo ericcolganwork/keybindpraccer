@@ -117,6 +117,7 @@ export class KeybindComponent implements OnInit {
   copy(km: KeyModel) {
     const newKM = new KeyModel(km.Key, km.Alias, km.Shift, km.Alt, km.Ctrl);
     this.keyBindModel.keyList.push(newKM);
+    localStorage.setItem('keyList', JSON.stringify(this.keyBindModel.keyList));
   }
 
   delete(km: KeyModel) {
