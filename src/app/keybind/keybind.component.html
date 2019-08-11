@@ -6,8 +6,16 @@
 <div fxLayout="column" fxLayoutGap="20px">
 	<mat-card>
 		<mat-card-header>
-			<mat-card-title *ngIf="!showOptions" style="color: aquamarine">Ready</mat-card-title>
-			<mat-card-title *ngIf="showOptions" style="color: red">Not Ready</mat-card-title>
+			<mat-card-title>
+				<div fxLayout="row" fxLayoutAlign="start center">
+						<div *ngIf="!showOptions" style="color: aquamarine">Ready</div>
+						<div *ngIf="showOptions" style="color: red">Not Ready</div>	
+				</div>
+
+				<div>{{goodCount}} / {{count}}</div>
+				<countdown [config]="{leftTime: 300}">$!m!:$!s!</countdown>
+			</mat-card-title>
+
 		</mat-card-header>
 		<mat-card-content class="keyCard">
 			<div [class]="selectedKey.Class" fxLayout="row" fxLayoutAlign="center center">
@@ -18,6 +26,7 @@
 		<mat-card-actions>
 			<div fxLayout="row wrap" fxLayoutGap="20px">
 				<button mat-button color="primary" (click)="options()">Options</button>
+				<button mat-button color="primary" (click)="reset()">Reset</button>
 			</div>
 		</mat-card-actions>
 	</mat-card>

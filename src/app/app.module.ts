@@ -18,6 +18,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { KeybindComponent } from './keybind/keybind.component';
 import { AboutDialogComponent } from './about-dialog/about-dialog.component';
+import { CountdownModule } from 'ngx-countdown';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { AboutDialogComponent } from './about-dialog/about-dialog.component';
     BrowserAnimationsModule,
     MatCheckboxModule,
     MatDialogModule,
-    MatToolbarModule
+    MatToolbarModule,
+    CountdownModule
   ],
   entryComponents: [
     AboutDialogComponent

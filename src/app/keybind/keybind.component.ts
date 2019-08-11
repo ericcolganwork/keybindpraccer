@@ -29,6 +29,8 @@ export class KeybindComponent implements OnInit {
   public selectedKey: KeyModel;
   public keyboardActive: boolean;
   public guid: Guid;
+  public goodCount: number;
+  public count: number;
 
   public newBind: KeyModel;
 
@@ -47,15 +49,27 @@ export class KeybindComponent implements OnInit {
         new KeyModel('s', 's', false, false, false),
         new KeyModel('d', 'd', false, false, false),
         new KeyModel('f', 'f', false, false, false),
-        new KeyModel('s', 's', false, false, false),
         new KeyModel('1', '1', false, false, false),
         new KeyModel('2', '2', false, false, false),
         new KeyModel('3', '3', false, false, false),
         new KeyModel('4', '4', false, false, false),
+        new KeyModel('q', 'Shift q', true, false, false),
+        new KeyModel('w', 'Shift w', true, false, false),
+        new KeyModel('e', 'Shift e', true, false, false),
+        new KeyModel('r', 'Shift r', true, false, false),
+        new KeyModel('a', 'Shift a', true, false, false),
+        new KeyModel('s', 'Shift s', true, false, false),
+        new KeyModel('d', 'Shift d', true, false, false),
+        new KeyModel('f', 'Shift f', true, false, false),
+        new KeyModel('1', 'Shift 1', true, false, false),
+        new KeyModel('2', 'Shift 2', true, false, false),
+        new KeyModel('3', 'Shift 3', true, false, false),
+        new KeyModel('4', 'Shift 4', true, false, false)
       ];
     }
 
-
+    this.goodCount = 0;
+    this.count = 0;
     this.showOptions = false;
     this.newBind = new KeyModel('', '', false, false, false);
     this.guid = new Guid();
@@ -64,14 +78,15 @@ export class KeybindComponent implements OnInit {
   }
 
 
-
   @HostListener('document:keypress', ['$event'])
   handleKeyboardEvent(event: KeyboardEvent) {
     console.log(event.key);
     if (this.keyboardActive === true && !this.showOptions) {
       this.keyboardActive = false;
+      this.count++;
       if (event.key.toLowerCase() === this.selectedKey.Key.toLowerCase() && event.shiftKey === this.selectedKey.Shift
         && event.altKey === this.selectedKey.Alt && event.ctrlKey === this.selectedKey.Ctrl) {
+        this.goodCount++;
         this.selectedKey.Class = 'green';
       } else {
         this.selectedKey.Class = 'red';
@@ -127,6 +142,11 @@ export class KeybindComponent implements OnInit {
 
   options() {
     this.showOptions = !this.showOptions;
+  }
+
+  reset() {
+    this.count = 0;
+    this.goodCount = 0;
   }
 }
 
